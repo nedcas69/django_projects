@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Меню кафе{% endblock %}
+
+{% block content %}
+<h1>Меню кафе</h1>
+
+<!-- Форма поиска заказа -->
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="q" placeholder="Поиск заказа по ID или номеру стола" class="form-control">
+        <button type="submit" class="btn btn-secondary">Найти</button>
+    </div>
+</form>
+
+<!-- Меню блюд -->
+<h2>Наши блюда:</h2>
+<div class="row">
+    {% for food in foods %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ food.name }}</h5>
+                <p class="card-text">{{ food.price }} руб.</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Кнопка для создания нового заказа -->
+<a href="{% url 'create_order' %}" class="btn btn-primary mt-3">Создать новый заказ</a>
+
+<!-- Найденные заказы -->
+{% if orders %}
+<h2>Найденные заказы:</h2>
+<ul>
+    {% for order in orders %}
+    <li>
+        Заказ #{{ order.id }} (Стол {{ order.table.number }})
+        <a href="{% url 'edit_order' order.id %}" class="btn btn-sm btn-warning">Редактировать</a>
+        <a href="{% url 'cancel_order_by_client' order.id %}" class="btn btn-sm btn-warning">Отменить заказ</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

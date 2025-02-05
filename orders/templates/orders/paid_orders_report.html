@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Отчет по оплаченным заказам{% endblock %}
+
+{% block content %}
+<h1>Отчет по оплаченным заказам</h1>
+
+<h2>Выручка за сегодня: {{ today_total|floatformat:2 }} руб.</h2>
+
+<h3>Все оплаченные заказы</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID заказа</th>
+            <th>Стол</th>
+            <th>Блюдо</th>
+            <th>Общая стоимость</th>
+            <th>Стоимость обслуги</th>
+            <th>Итоговая цена</th>
+            <th>Дата создания</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in page_obj %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.table.number }}</td>
+            <td>
+            <ul style="list-style: none; padding: 0;">
+                {% for item in order.items %}
+                <li>{{ item.name }} - {{ item.price|floatformat:2 }} руб.</li>
+                {% endfor %}
+            </ul>
+            </td>
+            <td>{{ order.total_price|floatformat:2 }} руб.</td>
+            <td>{{ order.service_fee|floatformat:2 }} руб.</td>
+            <td>{{ order.total_with_service|floatformat:2 }} руб.</td>
+            <td>{{ order.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<!-- Ссылка на страницу оплаченных заказов -->
+<a href="{% url 'operator_dashboard' %}" class="btn btn-info mt-3">Панель оператора</a>
+
+{% endblock %}

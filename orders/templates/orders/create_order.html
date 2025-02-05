@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Создать заказ{% endblock %}
+
+{% block content %}
+<h1>Создать новый заказ</h1>
+
+<form method="post" class="mb-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-success">Создать заказ</button>
+</form>
+
+<a href="{% url 'client_dashboard' %}" class="btn btn-secondary">Назад к меню</a>
+{% endblock %}

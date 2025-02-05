@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактировать заказ #{{ order.id }}{% endblock %}
+
+{% block content %}
+<h1>Редактировать заказ #{{ order.id }}</h1>
+
+<form method="post" class="mb-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-warning">Сохранить изменения</button>
+</form>
+
+<a href="{% url 'client_dashboard' %}" class="btn btn-secondary">Отмена</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали заказа #{{ order.id }}{% endblock %}
+
+{% block content %}
+<h1>Детали заказа #{{ order.id }}</h1>
+
+<p><strong>Стол:</strong> {{ order.table.number }}</p>
+<p><strong>Статус:</strong> {{ order.get_status_display }}</p>
+<p><strong>Общая стоимость:</strong> {{ order.total_price|floatformat:2 }} руб.</p>
+<p><strong>Стоимость обслуги (10%):</strong> {{ order.service_fee|floatformat:2 }} руб.</p>
+<p><strong>Итоговая цена:</strong> {{ order.total_with_service|floatformat:2 }} руб.</p>
+
+<h3>Блюда:</h3>
+<ul>
+    {% for item in order.items %}
+    <li>{{ item.name }} - {{ item.price|floatformat:2 }} руб.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'client_dashboard' %}" class="btn btn-secondary">Назад к списку</a>
+{% endblock %}
