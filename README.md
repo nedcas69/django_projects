@@ -28,7 +28,7 @@
 - DELETE /api/orders/{id}/ : Удаление заказа.
 
 ## Стек технологий
-- Python 3.8
+- Python 3.9
 - Django 4.2.18
 - Djangorestframework 3.15.2
 - HTML/Bootstrap
