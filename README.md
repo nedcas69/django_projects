@@ -49,9 +49,7 @@
 ## Линки
 http://127.0.0.1:8000/admin - Админка
 http://127.0.0.1:8000/orders - Клиентская часть
-http://127.0.0.1:8000/orders/operator
-http://127.0.0.1:8000/orders/api/orders
-http://127.0.0.1:8000/orders/api/foods
-
-
+http://127.0.0.1:8000/orders/operator - Операторская часть
+http://127.0.0.1:8000/orders/api/orders - API orders
+http://127.0.0.1:8000/orders/api/foods -API foods
 
